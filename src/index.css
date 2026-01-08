@@ -283,16 +283,55 @@ body {
 }
 
 @media (max-width: 768px) {
-    .slots-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .app-container {
+        padding: 1rem;
+    }
+
+    .app-header {
+        margin-bottom: 1.5rem;
     }
 
     .app-header h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
+    }
+
+    .slots-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .category-slot {
+        height: 220px;
+        /* Much smaller fixed height for mobile */
+        padding: 0.5rem;
+    }
+
+    .slot-header h3 {
+        font-size: 0.9rem;
+    }
+
+    .action-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+
+    .generate-btn {
+        width: 100%;
+        font-size: 1.1rem;
+        padding: 0.8rem;
     }
 }
 
 @media (max-width: 480px) {
+    .slots-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 360px) {
+
+    /* For very small screens, go back to 1 column but keep it compact */
     .slots-grid {
         grid-template-columns: 1fr;
     }
