@@ -1,0 +1,299 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #121212 0%, #2d1b36 100%);
+    --surface-color: rgba(255, 255, 255, 0.05);
+    --primary-color: #bb86fc;
+    --secondary-color: #03dac6;
+    --text-color: #ffffff;
+    --secondary-text: #b0b3b8;
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --lock-color: #cf6679;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#root {
+    width: 100%;
+}
+
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.app-header {
+    margin-bottom: 3rem;
+    animation: fadeInDown 0.8s ease;
+}
+
+.app-header h1 {
+    font-size: 3.5rem;
+    background: linear-gradient(to right, #bb86fc, #03dac6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.app-header p {
+    color: var(--secondary-text);
+    font-size: 1.2rem;
+}
+
+/* GRID LAYOUT */
+.randomizer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    justify-content: center;
+}
+
+/* SLOT CARD */
+.category-slot {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.category-slot:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.category-slot.locked {
+    border-color: var(--lock-color);
+    box-shadow: 0 0 15px rgba(207, 102, 121, 0.15);
+}
+
+.slot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+}
+
+.slot-header h3 {
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--secondary-text);
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    background: rgba(255, 255, 255, 0.1);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.lock-btn {
+    font-size: 1.2rem;
+}
+
+.category-slot.locked .lock-btn {
+    background: rgba(207, 102, 121, 0.2);
+}
+
+
+/* IMAGE AREA */
+.image-area {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+}
+
+.image-area:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.category-slot:hover .image-container img {
+    transform: scale(1.05);
+}
+
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--secondary-text);
+    opacity: 0.7;
+}
+
+.placeholder span {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Controls overlaid on image */
+.image-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.category-slot:hover .image-actions {
+    opacity: 1;
+}
+
+.image-actions button {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.image-actions button:hover {
+    background: var(--primary-color);
+}
+
+.image-actions button.delete-btn:hover {
+    background: #cf6679;
+}
+
+
+/* GENERATE BUTTON */
+.controls {
+    margin-top: 2rem;
+}
+
+.generate-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: #121212;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 1rem 4rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 15px rgba(187, 134, 252, 0.3);
+    transition: all 0.3s ease;
+}
+
+.generate-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(187, 134, 252, 0.5);
+}
+
+.generate-btn:active {
+    transform: translateY(1px);
+}
+
+/* Loading */
+.loading {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .slots-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .app-header h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .slots-grid {
+        grid-template-columns: 1fr;
+    }
+}
